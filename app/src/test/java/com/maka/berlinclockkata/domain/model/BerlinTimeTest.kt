@@ -1,7 +1,5 @@
-package com.maka.berlinclockkata.domain
+package com.maka.berlinclockkata.domain.model
 
-import com.maka.berlinclockkata.domain.model.BerlinTime
-import com.maka.berlinclockkata.domain.model.LightBulbStatus
 import org.junit.Test
 import kotlin.test.assertEquals
 
