@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,6 +15,7 @@ import com.maka.berlinclockkata.ui.components.SystemTime
 @Composable
 fun TimeScreen(
     uiState: UIState,
+    isDarkTheme: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -24,7 +26,7 @@ fun TimeScreen(
     ) {
         BerlinClockTime(
             berlinTime = uiState.berlinTime,
-            isDarkTheme = true
+            isDarkTheme = isDarkTheme
         )
         Spacer(modifier = Modifier.height(16.dp))
 
