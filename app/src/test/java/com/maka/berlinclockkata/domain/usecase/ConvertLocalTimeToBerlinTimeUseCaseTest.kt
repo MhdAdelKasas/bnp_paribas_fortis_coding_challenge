@@ -82,4 +82,40 @@ class ConvertLocalTimeToBerlinTimeUseCaseTest {
         val onCount = result.fiveHoursLightBulbs.count { it == LightBulbStatus.ON }
         assertEquals(4, onCount)
     }
+
+    // One Hour Row Tests
+    @Test
+    fun `one hour row shows 0 lights for hour 0`() {
+        val result = useCase(LocalTime.of(0, 0, 0))
+        val onCount = result.oneHoursLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(0, onCount)
+    }
+
+    @Test
+    fun `one hour row shows 1 light for hour 1`() {
+        val result = useCase(LocalTime.of(1, 0, 0))
+        val onCount = result.oneHoursLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(1, onCount)
+    }
+
+    @Test
+    fun `one hour row shows 4 lights for hour 4`() {
+        val result = useCase(LocalTime.of(4, 0, 0))
+        val onCount = result.oneHoursLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(4, onCount)
+    }
+
+    @Test
+    fun `one hour row shows 0 lights for hour 5`() {
+        val result = useCase(LocalTime.of(5, 0, 0))
+        val onCount = result.oneHoursLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(0, onCount)
+    }
+
+    @Test
+    fun `one hour row shows 3 lights for hour 23`() {
+        val result = useCase(LocalTime.of(23, 0, 0))
+        val onCount = result.oneHoursLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(3, onCount)
+    }
 }
