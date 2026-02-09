@@ -19,7 +19,8 @@ fun TimeScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(8.dp),
     ) {
         BerlinClockTime(
             berlinTime = uiState.berlinTime,
