@@ -17,6 +17,9 @@ class ConvertLocalTimeToBerlinTimeUseCase {
             },
             fiveMinutesLightBulbs = List(11) { index ->
                 if (index < time.minute / 5) LightBulbStatus.ON else LightBulbStatus.OFF
+            },
+            oneMinuteLightBulbs = List(4) { index ->
+                if (index < time.minute % 5) LightBulbStatus.ON else LightBulbStatus.OFF
             }
         )
 
