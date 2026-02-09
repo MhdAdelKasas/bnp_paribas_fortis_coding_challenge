@@ -40,4 +40,41 @@ class BerlinTimeTest {
         assertEquals(4, berlinTime.oneMinuteLightBulbs.size)
         assertEquals(4, berlinTime.oneMinuteLightBulbs.count { it == LightBulbStatus.OFF })
     }
+
+    @Test
+    fun `BerlinTime can be created with custom values`() {
+        val berlinTime = BerlinTime(
+            secondsLightBulb = LightBulbStatus.ON,
+            fiveHoursLightBulbs = listOf(
+                LightBulbStatus.ON,
+                LightBulbStatus.ON,
+                LightBulbStatus.OFF,
+                LightBulbStatus.OFF
+            ),
+            oneHoursLightBulbs = listOf(
+                LightBulbStatus.OFF,
+                LightBulbStatus.OFF,
+                LightBulbStatus.OFF,
+                LightBulbStatus.OFF
+            ),
+            fiveMinutesLightBulbs = listOf(
+                LightBulbStatus.ON, LightBulbStatus.ON, LightBulbStatus.ON,
+                LightBulbStatus.ON, LightBulbStatus.ON, LightBulbStatus.ON,
+                LightBulbStatus.ON, LightBulbStatus.ON, LightBulbStatus.OFF,
+                LightBulbStatus.OFF, LightBulbStatus.OFF,
+            ),
+            oneMinuteLightBulbs = listOf(
+                LightBulbStatus.ON,
+                LightBulbStatus.ON,
+                LightBulbStatus.OFF,
+                LightBulbStatus.OFF
+            )
+        )
+
+        assertEquals(LightBulbStatus.ON, berlinTime.secondsLightBulb)
+        assertEquals(2, berlinTime.fiveHoursLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(0, berlinTime.oneHoursLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(8, berlinTime.fiveMinutesLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(2, berlinTime.oneMinuteLightBulbs.count { it == LightBulbStatus.ON })
+    }
 }
