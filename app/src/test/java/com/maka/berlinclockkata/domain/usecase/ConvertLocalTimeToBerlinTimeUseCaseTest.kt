@@ -154,4 +154,40 @@ class ConvertLocalTimeToBerlinTimeUseCaseTest {
         val onCount = result.fiveMinutesLightBulbs.count { it == LightBulbStatus.ON }
         assertEquals(11, onCount)
     }
+
+    // One Minute Row Tests
+    @Test
+    fun `one minute row shows 0 lights for minute 0`() {
+        val result = useCase(LocalTime.of(12, 0, 0))
+        val onCount = result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(0, onCount)
+    }
+
+    @Test
+    fun `one minute row shows 1 light for minute 1`() {
+        val result = useCase(LocalTime.of(12, 1, 0))
+        val onCount = result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(1, onCount)
+    }
+
+    @Test
+    fun `one minute row shows 4 lights for minute 4`() {
+        val result = useCase(LocalTime.of(12, 4, 0))
+        val onCount = result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(4, onCount)
+    }
+
+    @Test
+    fun `one minute row shows 0 lights for minute 5`() {
+        val result = useCase(LocalTime.of(12, 5, 0))
+        val onCount = result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(0, onCount)
+    }
+
+    @Test
+    fun `one minute row shows 4 lights for minute 59`() {
+        val result = useCase(LocalTime.of(12, 59, 0))
+        val onCount = result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON }
+        assertEquals(4, onCount)
+    }
 }
