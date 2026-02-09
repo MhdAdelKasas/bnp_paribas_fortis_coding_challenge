@@ -190,4 +190,38 @@ class ConvertLocalTimeToBerlinTimeUseCaseTest {
         val onCount = result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON }
         assertEquals(4, onCount)
     }
+
+    // Full Time Conversion Tests
+    @Test
+    fun `correct berlin time for 00 00 00 (midnight)`() {
+        val result = useCase(LocalTime.of(0, 0, 0))
+
+        assertEquals(LightBulbStatus.ON, result.secondsLightBulb)
+        assertEquals(0, result.fiveHoursLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(0, result.oneHoursLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(0, result.fiveMinutesLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(0, result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON })
+    }
+
+    @Test
+    fun `correct berlin time for 23 59 59`() {
+        val result = useCase(LocalTime.of(23, 59, 59))
+
+        assertEquals(LightBulbStatus.OFF, result.secondsLightBulb)
+        assertEquals(4, result.fiveHoursLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(3, result.oneHoursLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(11, result.fiveMinutesLightBulbs.count { it == LightBulbStatus.ON })
+        assertEquals(4, result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON })
+    }
+
+    @Test
+    fun `correct berlin time for 12 34 56`() {
+        val result = useCase(LocalTime.of(12, 34, 56))
+
+        assertEquals(LightBulbStatus.ON, result.secondsLightBulb) // 56 is even
+        assertEquals(2, result.fiveHoursLightBulbs.count { it == LightBulbStatus.ON }) // 12 / 5 = 2
+        assertEquals(2, result.oneHoursLightBulbs.count { it == LightBulbStatus.ON }) // 12 % 5 = 2
+        assertEquals(6, result.fiveMinutesLightBulbs.count { it == LightBulbStatus.ON }) // 34 / 5 = 6
+        assertEquals(4, result.oneMinuteLightBulbs.count { it == LightBulbStatus.ON }) // 34 % 5 = 4
+    }
 }
