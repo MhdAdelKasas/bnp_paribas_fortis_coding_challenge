@@ -1,7 +1,6 @@
-package com.maka.berlinclockkata.domain.useCase
+package com.maka.berlinclockkata.domain.usecase
 
 import com.maka.berlinclockkata.domain.model.LightBulbStatus
-import com.maka.berlinclockkata.domain.useCase.ConvertLocalTimeToBerlinTimeUseCase
 import org.junit.Before
 import org.junit.Test
 import java.time.LocalTime
