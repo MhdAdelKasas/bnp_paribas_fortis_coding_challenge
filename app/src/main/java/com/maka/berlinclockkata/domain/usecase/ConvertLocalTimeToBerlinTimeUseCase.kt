@@ -9,18 +9,14 @@ class ConvertLocalTimeToBerlinTimeUseCase {
     operator fun invoke(time: LocalTime): BerlinTime =
         BerlinTime(
             secondsLightBulb = if (time.second % 2 == 0) LightBulbStatus.ON else LightBulbStatus.OFF,
-            fiveHoursLightBulbs = List(4) { index ->
-                if (index < time.hour / 5) LightBulbStatus.ON else LightBulbStatus.OFF
-            },
-            oneHoursLightBulbs = List(4) { index ->
-                if(index < time.hour % 5) LightBulbStatus.ON else LightBulbStatus.OFF
-            },
-            fiveMinutesLightBulbs = List(11) { index ->
-                if (index < time.minute / 5) LightBulbStatus.ON else LightBulbStatus.OFF
-            },
-            oneMinuteLightBulbs = List(4) { index ->
-                if (index < time.minute % 5) LightBulbStatus.ON else LightBulbStatus.OFF
-            }
+            fiveHoursLightBulbs = createLightBulbsList(4, time.hour / 5),
+            oneHoursLightBulbs =createLightBulbsList(4, time.hour % 5),
+            fiveMinutesLightBulbs = createLightBulbsList(11, time.minute / 5),
+            oneMinuteLightBulbs = createLightBulbsList(4, time.minute % 5)
         )
 
+    private fun createLightBulbsList(size: Int, onCount: Int) =
+        List(size) { index ->
+            if (index < onCount) LightBulbStatus.ON else LightBulbStatus.OFF
+        }
 }
