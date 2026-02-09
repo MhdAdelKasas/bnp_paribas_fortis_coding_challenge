@@ -2,6 +2,7 @@ package com.maka.berlinclockkata.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maka.berlinclockkata.domain.usecase.ConvertLocalTimeToBerlinTimeUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -10,7 +11,9 @@ import kotlinx.coroutines.flow.stateIn
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class TimeScreenViewModel : ViewModel() {
+class TimeScreenViewModel(
+    private val convertLocalTimeToBerlinTimeUseCase: ConvertLocalTimeToBerlinTimeUseCase
+) : ViewModel() {
 
     private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
 
@@ -25,6 +28,7 @@ class TimeScreenViewModel : ViewModel() {
         timeFlow.collect { time ->
             emit(
                 UIState(
+                    berlinTime = convertLocalTimeToBerlinTimeUseCase(time),
                     systemTime = time.format(timeFormatter)
                 )
             )

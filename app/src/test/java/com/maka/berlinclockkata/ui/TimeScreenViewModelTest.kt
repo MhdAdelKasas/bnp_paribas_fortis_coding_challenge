@@ -2,6 +2,7 @@ package com.maka.berlinclockkata.ui
 
 import com.maka.berlinclockkata.domain.model.BerlinTime
 import com.maka.berlinclockkata.domain.model.LightBulbStatus
+import com.maka.berlinclockkata.domain.usecase.ConvertLocalTimeToBerlinTimeUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -22,7 +23,7 @@ class TimeScreenViewModelTest {
     @Before
     fun Setup() {
         Dispatchers.setMain(testDispatcher)
-        viewModel = TimeScreenViewModel()
+        viewModel = TimeScreenViewModel(ConvertLocalTimeToBerlinTimeUseCase())
     }
 
     @After
